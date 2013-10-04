@@ -42,6 +42,7 @@ var Dataset = (function() {
     // only initialize storage if there's a name otherwise
     // loading from storage on subsequent page loads is impossible
     this.storage = o.name ? new PersistentStorage(o.name) : null;
+    this.maxHeight = o.maxHeight || null;
   }
 
   utils.mixin(Dataset.prototype, {
