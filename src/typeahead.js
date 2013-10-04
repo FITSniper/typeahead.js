@@ -38,12 +38,21 @@
           return dataset.initialize();
         });
 
-        $input.data(viewKey, new TypeaheadView({
+        var view = new TypeaheadView({
           input: $input,
-          eventBus: eventBus = new EventBus({ el: $input }),
+          eventBus: eventBus = new EventBus({
+                      el: $input
+                    }),
           datasets: datasets
-        }));
-
+        });
+        if(datasets[0].maxHeight) {
+          var dropDownMaxHeight = datasets[0].maxHeight;
+          view.dropdownView.$menu.css({'overflow-x': 'scroll',
+                                       'overflow-y': 'scroll',
+                                       'max-height': dropDownMaxHeight + "px"});
+        }
+            
+        $input.data(viewKey, view);
         $.when.apply($, deferreds)
         .always(function() {
           // deferring to make it possible to attach a listener
